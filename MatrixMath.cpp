@@ -12,40 +12,13 @@ bool isSimple(int N)
     return true;
 }
 
-//void Transpose(int matrix[M][M])
-//{
-//    int t;
-//    for (int i = 0; i < M; ++i)
-//    {
-//        for (int j = i; j < M; ++j)
-//        {
-//            t = matrix[i][j];
-//            matrix[i][j] = matrix[j][i];
-//            matrix[j][i] = t;
-//        }
-//    }
-//}
-//
-//void MatrixMul(int matrix[M][M], int mul){
-//	for(int i = 0; i < M; i++){
-//		for(int j = 0; j < M; j++){
-//			matrix[i][j] *= mul;
-//		}
-//	}
-//}
-//
-//void MatrixAdd(int matrixA[M][M], int matrixB[M][M]){
-//	for(int i = 0; i < M; i++){
-//		for(int j = 0; j < M; j++){
-//			matrixA[i][j] += matrixB[i][j];
-//		}
-//	}
-//}
-
 int** Transpose(int** matrix, int h, int w){
-	if(h <= 0 || w <= 0)
+	if(h <= 0 || w <= 0 || matrix == NULL)
 		return NULL;
-
+    for(int j = 0; j < h; j++){
+        if (matrix[j] == NULL)
+            return NULL;
+    }
 	int **to_ret = new int*[w];
 	for(int i = 0; i < w; i++) {
 		to_ret[i] = new int[h];
@@ -58,11 +31,14 @@ int** Transpose(int** matrix, int h, int w){
 
 int** MatrixMul(int ** arr, int h, int w, int mul){
 
-	if(h <= 0 || w <= 0)
+	if(h <= 0 || w <= 0 || arr == NULL)
 		return NULL;
 
 	int** to_ret = new int*[h];
 	for(int i = 0; i < h; i++){
+        if (arr[i]==NULL){
+            return NULL;
+        }
 		to_ret[i] = new int[w];
 		for(int j = 0; j < w; j++){
 			to_ret[i][j] = arr[i][j] * mul;
@@ -73,11 +49,14 @@ int** MatrixMul(int ** arr, int h, int w, int mul){
 
 int** MatrixAdd(int **matrixA, int **matrixB, int h, int w){
 
-	if(h <= 0 || w <= 0)
+	if(h <= 0 || w <= 0 || matrixB == NULL || matrixA == NULL)
 		return NULL;
 
 	int **to_ret = new int*[h];
 	for(int i = 0; i < h; i++){
+        if (matrixA[i]==NULL || matrixB[i]==NULL){
+            return NULL;
+        }
 		to_ret[i] = new int[w];
 		for(int j = 0; j < w; j++){
 			to_ret[i][j] = matrixA[i][j] + matrixB[i][j];
